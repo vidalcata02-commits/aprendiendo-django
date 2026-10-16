@@ -87,4 +87,18 @@ def articulo(request):
 
     return HttpResponse(response)
 
+def editar_articulo(request, id):
+    articulo = Article.objects.get(pk=id)
+    articulo.title = "Batman"
+    articulo.content = "Pelicula del 2017"
+    articulo.public = True
+    articulo.save()
 
+    return HttpResponse(f"Articulo {articulo.id} editado: <strong>{articulo.title} {articulo.content}</strong>")
+
+def articulos(request):
+    articulos = Article.objects.all()
+    
+    return render(request, 'articulos.html', {
+        'articulos': articulos
+    })
