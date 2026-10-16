@@ -14,14 +14,14 @@ layout = """
            <a href= "/inicio">Inicio</a>
     </li>
     <li>
-            <a href= "/hola-mundo">Hola Mundo</a>
+              <a href= "/hola-mundo">Hola Mundo</a>
         </li>
     <li>
-            <a href= "/pagina-pruebas">Página de Pruebas</a>
+              <a href= "/pagina-pruebas">Página de Pruebas</a>
     </li>
     <li>
          <a href= "/contacto">Contacto</a>
-            </li>
+               </li>
 </ul>
 <hr/>        
 """
@@ -97,31 +97,20 @@ def editar_articulo(request, id):
 
     return HttpResponse(f"Articulo {articulo.id} editado: <strong>{articulo.title} {articulo.content}</strong>")
 
-
-
-
 def articulos(request):
-
-    articulos = Article.objects.all()
-
-    articulos = Article.objects.filter(title__iexact="articulo")
-
-    articulos = Article.objects.filter(
-                                title="Articulo", 
-                                ).exclude(
-                                     public=True
-                )
+    # Puedes descomentar la línea que quieras probar del video:
+    # articulos = Article.objects.all()
+    # articulos = Article.objects.filter(title__iexact="articulo")
+    # articulos = Article.objects.filter(title="Articulo").exclude(public=True)
+    
     articulos = Article.objects.raw('SELECT * FROM miapp_article WHERE title="Articulo" AND public=0')
     
     return render(request, 'articulos.html', {
         'articulos': articulos
     })
 
-
-
-
 def borrar_articulo(request, id):
     articulo = Article.objects.get(pk=id)
     articulo.delete()
 
-    return redirect('articulos')  # Asegúrate de poner una ruta válida aquí
+    return redirect('articulos')
