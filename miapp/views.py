@@ -66,5 +66,7 @@ def contacto(request,nombre="",apellidos=""):
     if nombre and apellidos:
         html += "<p>El nombre completo es:</p>"
         html += f"<h3>{nombre} {apellidos}</h3>"
-
     return HttpResponse(layout + f"<h2>Contacto</h2>"+html)
+
+def crear_articulo(request):
+    return HttpResponse("Usuario Creado")
