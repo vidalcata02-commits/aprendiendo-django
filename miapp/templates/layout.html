@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}
+
+        {%endblock%}
+        ADSO SENA
+    </title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" />
+</head>
+
+<body>
+
+    <!--Cabecera de la página-->
+    <header>
+        <div id="logotipo">
+            <!--Logotipo Django-->
+            <img src="{% static 'images/icono.png' %}" alt="Logotipo Django" />
+            <h1>Sitio Web con Django</h1>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li>
+                <a href="/inicio">Inicio</a>
+            </li>
+            <li>
+                <a href="/hola-mundo">Hola Mundo</a>
+            </li>
+            <li>
+                <a href="/pagina-pruebas">Página de Pruebas</a>
+            </li>
+            <li>
+                <a href="/contacto">Contacto</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div id="content">
+        <div class="box">
+            <h2 class="title">Titulo de prueba </h2>
+            {% block content %}
+            <!--Codigo que viene de templates-->
+            {% endblock %}
+        </div>
+
+    </div>
+
+    <footer>
+        Curso de Python &copy; ADSO SENA 2026
+    </footer>
+</body>
+
+</html>
