@@ -2,6 +2,8 @@
 
 {% block title %} {{ title }} {% endblock %}
 {% block content %}
+<!--Esto es un include-->
+ {% include 'fecha-actual.html' %}
 
 <!--Esto es un comentario en html-->
 {% comment "Esto es un comentario en Django" %}
@@ -21,7 +23,7 @@
 <h3>Listado de lenguajes de programacion<h3/>
 <ul>
      {% for lenguaje in lenguajes %}
-         <li>{{ lenguaje }} {{ forloop.revcounter}}</li>
+         <li> {{ forloop.counter}} {{ lenguaje }}</li>
      {% empty %}
      <p> No hay lenguajes que mostrar</p>
      {% endfor %}
