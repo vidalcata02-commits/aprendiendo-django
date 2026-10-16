@@ -70,4 +70,10 @@ def contacto(request,nombre="",apellidos=""):
     return HttpResponse(layout + f"<h2>Contacto</h2>"+html)
 
 def crear_articulo(request):
-    return HttpResponse("usuario Creado")
+    articulo = Article(
+        title = "Primer Articulo!!",
+        content = "Contenido del articulo",
+        public = True
+    )
+    articulo.save()
+    return HttpResponse(f"Articulo Creado: <strong>{articulo.title}</strong> - {articulo.content}")
