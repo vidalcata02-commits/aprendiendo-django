@@ -1,5 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 from miapp.models import Article, Category
+from django.db.models import Q
 
 # Create your views here.
 # MVC = Modelo Vista Controlador -> Acciones (metodos)
@@ -96,9 +97,31 @@ def editar_articulo(request, id):
 
     return HttpResponse(f"Articulo {articulo.id} editado: <strong>{articulo.title} {articulo.content}</strong>")
 
+
+
+
 def articulos(request):
+
     articulos = Article.objects.all()
+
+    articulos = Article.objects.filter(title__iexact="articulo")
+
+    articulos = Article.objects.filter(
+                                title="Articulo", 
+                                ).exclude(
+                                     public=True
+                )
+    articulos = Article.objects.raw('SELECT * FROM miapp_article WHERE title="Articulo" AND public=0')
     
     return render(request, 'articulos.html', {
         'articulos': articulos
     })
+
+
+
+
+def borrar_articulo(request, id):
+    articulo = Article.objects.get(pk=id)
+    articulo.delete()
+
+    return redirect('articulos')  # Asegúrate de poner una ruta válida aquí

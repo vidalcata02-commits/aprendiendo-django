@@ -1,7 +1,31 @@
 {% extends "layout.html" %}
 
-{% block title %} Página de Pruebas {% endblock %}
+{% block title %} Listado de articulos {% endblock %}
+
 {% block content %}
-<h1 class="title">Página de mi WEB</h1>
-<p>Creado por ADSO Popayán</p>
+
+<h1 class="title">Listado de  Artículos</h1>
+
+    <ul>
+        {% for articulo in articulos %}
+            <li>
+                <h4>{{ articulo.id }}. {{ articulo.title }}</h4>
+                <span>{{articulo.created_at}}</span>
+                {% if articulo.public %}
+                    <strong>Publicado</strong>
+                {% else %}
+                    <strong>Privado</strong>
+                {% endif %}
+                <p>
+                    {{ articulo.content }}
+                    </br>
+                    <a href="{% url 'borrar_articulo' id=articulo.id %}">Borrar </a>
+                </p>
+                 
+                </br>
+
+            </li>
+        {% endfor %}
+    </ul> 
+
 {% endblock %}
