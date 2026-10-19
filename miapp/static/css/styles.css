@@ -141,6 +141,10 @@ nav ul li a:hover{
     cursor: pointer;
     background: #1f7e58;
 }
+.rojo{
+    color: red;
+    box-shadow: 0px 0px 4px black;
+}
 /*Estilos para title*/
 .title{
     color: #444;
