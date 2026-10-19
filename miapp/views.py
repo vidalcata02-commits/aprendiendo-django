@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect
 from miapp.models import Article, Category
 from django.db.models import Q
+from miapp.forms import FormArticle #Importamos la guia desde forms.py
 
 # Create your views here.
 # MVC = Modelo Vista Controlador -> Acciones (metodos)
@@ -63,8 +64,44 @@ def pagina(request,redirigir = 0):
     return render (request,'pagina.html')
 
 def create_article(request):
-    return render(request, 'create_articulo.html')
+    form = FormArticle()
+    return render(request, 'create_articulo.html',)
 
+def create_full_article(request):
+    # Realizamos la comprobacion del metodo (POST-GET)
+    if request.method == 'POST':
+        # si llegan datos por POST se debe:
+        formulario = FormArticle(request.POST)
+        
+        # aqui podemos validar el formulario con un metodo is_valid
+        if formulario.is_valid():
+            # generamos una variable para recoger los datos del formulario
+            data_form = formulario.cleaned_data # que son los datos limpios que nos llegan
+            title = data_form.get('title') # lo puedo hacer asi ó
+            content = data_form['content'] # lo puedo hacer asi
+            public = data_form['public']
+
+            # ¡OJO! Todo esto va indentado ADENTRO del if formulario.is_valid():
+            articulo = Article(
+                title = title, # title(nombre del modelo) = title(nombre de la variable)
+                content = content,
+                public = public
+            )
+            # Para guardar este articulo en la BD
+            articulo.save()
+            # rediccionar la pagina a articulos despues de guardado
+            return redirect('articulos')
+            
+    else:
+        # si NO nos llegan datos por POST (es decir, es GET) debemos generar un formulario vacio
+        formulario = FormArticle() # creamos una variable llamada formulario para instanciar el objeto
+        
+    # se carga la vista en html (si el método es GET, o si el formulario no pasó la validación)
+    return render(request, 'create_full_article.html', {
+        'form' : formulario
+    })
+
+                  
 def contacto(request,nombre="",apellidos=""):
     html = ""
     

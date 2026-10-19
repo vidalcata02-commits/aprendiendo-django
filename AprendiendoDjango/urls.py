@@ -38,4 +38,6 @@ urlpatterns = [
     #ruta para el formulario
     path('create-article/', views.create_article, name="create_article"),
     path('save-article/', views.save_article, name="save_article"),
+    path('create-full-article/', views.create_full_article, name="create_full_article"),
+    path('create-full/', views.create_full_article, name='create_full'), #Articulo clases 
 ]
