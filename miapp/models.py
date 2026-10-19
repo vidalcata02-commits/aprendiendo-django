@@ -1,7 +1,6 @@
 from django.db import models
 
 # Create your models here.
-
 #colocar los nombres de las entidades en singular
 
 class Article(models.Model): #Entidad
@@ -14,7 +13,16 @@ class Article(models.Model): #Entidad
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        #poner nombre en singular
+        verbose_name = "Articulo"
+        verbose_name_plural = "Articulos"
+
 class Category(models.Model): #Entidad
     name = models.CharField(max_length=110)
     description = models.CharField(max_length=250)
     created_at = models.DateField()
+    class Meta:
+        #poner nombre en singular
+        verbose_name ="Categoria"
+        verbose_name_plural ="Categoria"
