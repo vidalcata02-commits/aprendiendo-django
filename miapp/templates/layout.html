@@ -33,6 +33,9 @@
             <li>
                 <a href="{% url 'articulos' %}">Artículos</a>
             </li>
+             <li>
+                <a href="{% url 'create_article' %}">Crear Artículo</a>
+            </li>
             <li>
                 <a href="{% url 'hola_mundo' %}">Hola Mundo</a>
             </li>
@@ -47,7 +50,7 @@
 
     <div id="content">
         <div class="box">
-            <h2 class="title">Titulo de prueba </h2>
+            <h2 class="title"> </h2>
             {% block content %}
             <!--Codigo que viene de templates-->
             {% endblock %}

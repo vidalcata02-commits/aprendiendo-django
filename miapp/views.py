@@ -62,6 +62,9 @@ def pagina(request,redirigir = 0):
 
     return render (request,'pagina.html')
 
+def create_article(request):
+    return render(request, 'create_articulo.html')
+
 def contacto(request,nombre="",apellidos=""):
     html = ""
     
@@ -69,6 +72,24 @@ def contacto(request,nombre="",apellidos=""):
         html += "<p>El nombre completo es:</p>"
         html += f"<h3>{nombre} {apellidos}</h3>"
     return HttpResponse(layout + f"<h2>Contacto</h2>"+html)
+
+#Copia de crear_articulo y lo llamamos save_articulo
+def save_article(request): # No pasamos parametros por url y lo vamos a pasar por formulario
+    if request.method == 'POST':
+        title = request.POST['title']
+        content = request.POST['content']
+        public = request.POST['public']
+        articulo = Article(
+            title = title, #title(nombre del modelo) = title(nombre de la variable)
+            content = content,
+            public = public
+        )
+        
+        #Para guardar este articulo en la BD
+        articulo.save()
+        return HttpResponse(f"Artículo creado: <strong> {articulo.title} - {articulo.content} </strong>")
+    else:
+        return HttpResponse(f"<h2> No se ha podido crear el articulo </h2>")
 
 def crear_articulo(request,title,content,public):
     articulo = Article(
@@ -103,7 +124,7 @@ def articulos(request):
     # articulos = Article.objects.filter(title__iexact="articulo")
     # articulos = Article.objects.filter(title="Articulo").exclude(public=True)
     
-    articulos = Article.objects.raw('SELECT * FROM miapp_article WHERE title="Articulo" AND public=0')
+    articulos = Article.objects.all().order_by('-id') #Ordenar de forma descendente por id
     
     return render(request, 'articulos.html', {
         'articulos': articulos
