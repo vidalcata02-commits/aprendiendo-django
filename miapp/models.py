@@ -6,10 +6,10 @@ from django.db import models
 class Article(models.Model): #Entidad
 
     #propiedades *** Documentar cada tipo de dato
-    title = models.CharField(max_length=150)
-    content = models.TextField()
-    image = models.ImageField(default='null')
-    public = models.BooleanField()
+    title = models.CharField(max_length=150, verbose_name="Titulo")
+    content = models.TextField(verbose_name="Contenido")
+    image = models.ImageField(default='null', upload_to="articles", verbose_name="Imagen")
+    public = models.BooleanField(verbose_name="¿Publicado?")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -17,6 +17,14 @@ class Article(models.Model): #Entidad
         #poner nombre en singular
         verbose_name = "Articulo"
         verbose_name_plural = "Articulos"
+
+    def __str__(self):
+        if self.public:
+            public = "(Publicado)"
+        else:
+            public = "(Privado)"
+        
+        return f"{self.title} {public}"
 
 class Category(models.Model): #Entidad
     name = models.CharField(max_length=110)

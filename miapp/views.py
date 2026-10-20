@@ -163,7 +163,7 @@ def articulos(request):
     # articulos = Article.objects.filter(title__iexact="articulo")
     # articulos = Article.objects.filter(title="Articulo").exclude(public=True)
     
-    articulos = Article.objects.all().order_by('-id') #Ordenar de forma descendente por id
+    articulos = Article.objects.filter(public=True).order_by('-id') #Ordenar de forma descendente por id
     
     return render(request, 'articulos.html', {
         'articulos': articulos
